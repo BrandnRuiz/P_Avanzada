@@ -1,4 +1,4 @@
-﻿using P_WebMartes.Models;
+﻿using P_WebMartes.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +9,44 @@ namespace P_WebMartes.Controllers
 {
     public class LoginController : Controller
     {
-        UserModel model = new UserModel();
-
+        [HttpGet]
         public ActionResult Login()
         {
             return View();
-        } 
-        
+        }
+
+        [HttpPost]
+        public ActionResult Login( User entidad )
+        {
+
+            return RedirectToAction("Home", "Login");
+        }
+
+        [HttpGet]
         public ActionResult Register()
         {
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Register( User entidad )
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult RecoverAccess()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RecoverAccess( User entidad )
+        {
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult Home() 
         { 
             return View();

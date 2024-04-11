@@ -121,11 +121,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Entidades\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +158,7 @@
     <Content Include="Estilos\js\demo\datatables-demo.js" />
     <Content Include="Estilos\js\sb-admin-2.js" />
     <Content Include="Estilos\js\sb-admin-2.min.js" />
+    <Content Include="Estilos\js\UserRegister.js" />
     <Content Include="Estilos\vendor\bootstrap\js\bootstrap.bundle.js" />
     <Content Include="Estilos\vendor\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="Estilos\vendor\bootstrap\js\bootstrap.js" />
@@ -300,9 +300,11 @@
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Home.cshtml" />
+    <Content Include="Views\Login\RecoverAccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,8 @@
 ﻿@model P_WebMartes.Entidades.User
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "RecoverAccess";
     Layout = "~/Views/Shared/_LayoutExterno.cshtml";
 }
-
 
 <div class="container">
     <!-- Outer Row -->
@@ -17,25 +16,18 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Sistema web - Martes</h1>
-                                    <h4 class="text-gray-900 mb-4">Iniciar Sesión</h4>
+                                    <h1 class="h4 text-gray-900 mb-4">Recuperar Acceso</h1>
                                 </div>
-                                @using (Html.BeginForm("Login", "Login"))
+                                @using (Html.BeginForm("RecoverAccess", "Login"))
                                 {
                                     <div class="form-group">
                                         @Html.TextBoxFor(m => m.Id, new { @class = "form-control form-control-user", @style = "text-align: center;", @placeholder = "Identificación" })
                                     </div>
-                                    <div class="form-group">
-                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-user", @style ="text-align: center;", @placeholder = "Contraseña" })
-                                    </div>
-                                    <input type="submit" class="btn btn-primary btn-user btn-block" value="Iniciar Sesión">
+                                    <input type="submit" href="index.html" class="btn btn-primary btn-user btn-block" value="Recuperar">
                                     <hr>
                                 }
                                 <div class="text-center">
-                                    <a class="small" href="@Url.Action("RecoverAccess","Login")">Recuperar contraseña</a>
-                                </div>
-                                <div class="text-center">
-                                    <a class="small" href="@Url.Action("Register","Login")">Create una cuenta</a>
+                                    <a class="small" href="@Url.Action("Login","Login")">Volver a la página de Iniciar Sesión</a>
                                 </div>
                             </div>
                         </div>
