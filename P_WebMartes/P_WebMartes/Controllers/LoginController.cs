@@ -1,4 +1,6 @@
-﻿using P_WebMartes.Entidades;
+﻿using Microsoft.Ajax.Utilities;
+using P_WebMartes.Entidades;
+using P_WebMartes.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,9 @@ namespace P_WebMartes.Controllers
 {
     public class LoginController : Controller
     {
+
+        UserModel model = new UserModel();
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -18,8 +23,14 @@ namespace P_WebMartes.Controllers
         [HttpPost]
         public ActionResult Login( User entidad )
         {
+            var res = model.UserLogin( entidad );
 
-            return RedirectToAction("Home", "Login");
+            if (res.Count > 0)
+            {
+                return RedirectToAction("Home", "Login");
+            }
+
+            return View();
         }
 
         [HttpGet]
@@ -31,6 +42,11 @@ namespace P_WebMartes.Controllers
         [HttpPost]
         public ActionResult Register( User entidad )
         {
+            var res = model.UserRegister(entidad);
+
+            if (res > 0)            
+                return RedirectToAction("Login", "Login");  
+            
             return View();
         }
 
