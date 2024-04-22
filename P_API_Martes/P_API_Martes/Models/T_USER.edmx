@@ -9,6 +9,10 @@
           <Parameter Name="Id" Type="nvarchar" Mode="In" />
           <Parameter Name="Password" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="UserRecoveryAccess" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="nvarchar" Mode="In" />
+          <Parameter Name="Mail" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="UserRegister" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="nvarchar" Mode="In" />
           <Parameter Name="Name" Type="nvarchar" Mode="In" />
@@ -26,6 +30,10 @@
             <Parameter Name="Id" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="UserRecoveryAccess" ReturnType="Collection(martes_dbModel.UserRecoveryAccess_Result)">
+            <Parameter Name="Id" Mode="In" Type="String" />
+            <Parameter Name="Mail" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="UserRegister">
             <Parameter Name="Id" Mode="In" Type="String" />
             <Parameter Name="Name" Mode="In" Type="String" />
@@ -40,6 +48,18 @@
           <Property Type="String" Name="Mail" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="Password" Nullable="false" MaxLength="10" />
           <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="Boolean" Name="Temporary" Nullable="true" />
+          <Property Type="DateTime" Name="Expiration" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="UserRecoveryAccess_Result">
+          <Property Type="Int64" Name="Consecutivo" Nullable="false" />
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Mail" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="10" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+          <Property Type="Boolean" Name="Temporary" Nullable="true" />
+          <Property Type="DateTime" Name="Expiration" Nullable="true" Precision="23" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -56,6 +76,22 @@
                 <ScalarProperty Name="Mail" ColumnName="Mail" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Temporary" ColumnName="Temporary" />
+                <ScalarProperty Name="Expiration" ColumnName="Expiration" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UserRecoveryAccess" FunctionName="martes_dbModel.Store.UserRecoveryAccess">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="martes_dbModel.UserRecoveryAccess_Result">
+                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Temporary" ColumnName="Temporary" />
+                <ScalarProperty Name="Expiration" ColumnName="Expiration" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
