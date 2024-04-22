@@ -41,19 +41,6 @@ namespace P_API_Martes.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserLogin_Result>("UserLogin", idParameter, passwordParameter);
         }
     
-        public virtual ObjectResult<UserRecoveryAccess_Result> UserRecoveryAccess(string id, string mail)
-        {
-            var idParameter = id != null ?
-                new ObjectParameter("Id", id) :
-                new ObjectParameter("Id", typeof(string));
-    
-            var mailParameter = mail != null ?
-                new ObjectParameter("Mail", mail) :
-                new ObjectParameter("Mail", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserRecoveryAccess_Result>("UserRecoveryAccess", idParameter, mailParameter);
-        }
-    
         public virtual int UserRegister(string id, string name, string mail, string password)
         {
             var idParameter = id != null ?

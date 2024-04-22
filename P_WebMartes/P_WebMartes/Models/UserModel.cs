@@ -1,6 +1,5 @@
 ﻿using P_WebMartes.Entidades;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Web.Mvc;
@@ -9,8 +8,8 @@ namespace P_WebMartes.Models
 {
     public class UserModel
     {
-        public string url = ConfigurationManager.AppSettings["UrlWebAPI"];
-        public RequestMessage UserRegister( User entidad )
+        public string url = "https://localhost:44354/";
+        public int UserRegister( User entidad )
         {
             //De acá llamamos al API
             using (var client = new HttpClient())
@@ -20,13 +19,13 @@ namespace P_WebMartes.Models
                 var res = client.PostAsync(url, jsonEntidad).Result;
 
                 if (res.IsSuccessStatusCode)                
-                    return res.Content.ReadFromJsonAsync<RequestMessage>().Result;
-                else
-                    return null;
+                    return res.Content.ReadFromJsonAsync<int>().Result;
+
+                return 0;
             }
         }
 
-        public UserConfirm UserLogin(User entidad)
+        public List<User> UserLogin(User entidad)
         {
             //De acá llamamos al API
             using (var client = new HttpClient())
@@ -36,9 +35,9 @@ namespace P_WebMartes.Models
                 var res = client.PostAsync(url, jsonEntidad).Result;
 
                 if (res.IsSuccessStatusCode)
-                    return res.Content.ReadFromJsonAsync<UserConfirm>().Result;
-                else
-                    return null;
+                    return res.Content.ReadFromJsonAsync<List<User>>().Result;
+
+                return null;
             }
         }
     }
