@@ -11,7 +11,7 @@ namespace P_API_Martes.Models
 {
     using System;
     
-    public partial class UserLogin_Result
+    public partial class UserRecoveryAccess_Result
     {
         public long Consecutivo { get; set; }
         public string Id { get; set; }

@@ -25,12 +25,13 @@ namespace P_WebMartes.Controllers
         {
             var res = model.UserLogin( entidad );
 
-            if (res.Count > 0)
-            {
+            if (res.Code == 0)            
                 return RedirectToAction("Home", "Login");
+            else
+            {
+                ViewBag.MessageScreen = res.Message;
+                return View();
             }
-
-            return View();
         }
 
         [HttpGet]
@@ -44,10 +45,13 @@ namespace P_WebMartes.Controllers
         {
             var res = model.UserRegister(entidad);
 
-            if (res > 0)            
-                return RedirectToAction("Login", "Login");  
-            
-            return View();
+            if (res.Code == 0)            
+                return RedirectToAction("Login", "Login");
+            else
+            {
+                ViewBag.MessageScreen = res.Message;
+                return View();
+            }                
         }
 
         [HttpGet]
