@@ -164,6 +164,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Entidades\RequestMessage.cs" />
     <Compile Include="Entidades\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -184,6 +185,9 @@
       <DependentUpon>T_USER.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\UserLogin_Result.cs">
+      <DependentUpon>T_USER.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserRecoveryAccess_Result.cs">
       <DependentUpon>T_USER.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
