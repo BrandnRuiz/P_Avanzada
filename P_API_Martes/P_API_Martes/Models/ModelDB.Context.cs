@@ -28,6 +28,15 @@ namespace P_API_Martes.Models
         }
     
     
+        public virtual ObjectResult<ConsultProduct_Result> ConsultProduct(Nullable<bool> vIewAll)
+        {
+            var vIewAllParameter = vIewAll.HasValue ?
+                new ObjectParameter("VIewAll", vIewAll) :
+                new ObjectParameter("VIewAll", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultProduct_Result>("ConsultProduct", vIewAllParameter);
+        }
+    
         public virtual ObjectResult<UserLogin_Result> UserLogin(string id, string password)
         {
             var idParameter = id != null ?

@@ -19,7 +19,7 @@ namespace P_API_Martes.Models
         public string Mail { get; set; }
         public string Password { get; set; }
         public bool Estado { get; set; }
-        public Nullable<bool> Temporary { get; set; }
-        public Nullable<System.DateTime> Expiration { get; set; }
+        public bool Temporary { get; set; }
+        public System.DateTime Expiration { get; set; }
     }
 }

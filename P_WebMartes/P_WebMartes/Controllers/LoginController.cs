@@ -63,7 +63,15 @@ namespace P_WebMartes.Controllers
         [HttpPost]
         public ActionResult RecoverAccess( User entidad )
         {
-            return View();
+            var res = model.UserRecoverAccess(entidad);
+
+            if (res.Code == 0)
+                return RedirectToAction("Login", "Login");
+            else
+            {
+                ViewBag.MessageScreen = res.Message;
+                return View();
+            }
         }
 
         [HttpGet]

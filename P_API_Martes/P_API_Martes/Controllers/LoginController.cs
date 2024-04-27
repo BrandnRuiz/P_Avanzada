@@ -1,8 +1,10 @@
-﻿using P_API_Martes.Entidades;
+﻿using Microsoft.Ajax.Utilities;
+using P_API_Martes.Entidades;
 using P_API_Martes.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -15,7 +17,9 @@ namespace P_API_Martes.Controllers
 {
     public class LoginController : ApiController
     {
-        [Route("Login/RegistrarUsuario")]
+        UtilsModel Utilities = new UtilsModel(); 
+        
+        [Route("Inicio/RegistrarUsuario")]
         [HttpPost]
         public RequestMessage UserRegister( User entidad )
         {
@@ -55,7 +59,7 @@ namespace P_API_Martes.Controllers
         }
 
         //Este es de tipo POST por ser datos sensibles
-        [Route("Login/IniciarSesionUsuario")]
+        [Route("Inicio/IniciarSesionUsuario")]
         [HttpPost]
         public UserConfirm UserLogin(User entidad)
         {
@@ -70,9 +74,17 @@ namespace P_API_Martes.Controllers
 
                     if (res != null)
                     {
-                        response.Code = 0;
-                        response.Message = string.Empty;
-                        response.Data = res;
+                        if (res.Temporary && DateTime.Now > res.Expiration)
+                        {
+                            response.Code = -1;
+                            response.Message = "Su contraseña temporal ha caducado";
+                        }
+                        else
+                        {
+                            response.Code = 0;
+                            response.Message = string.Empty;
+                            response.Data = res;
+                        }
                     }
                     else
                     {
@@ -90,7 +102,7 @@ namespace P_API_Martes.Controllers
         }
 
         //Este es de tipo POST por ser datos sensibles
-        [Route("Login/RecuperarAccesoUsuario")]
+        [Route("Inicio/RecuperarAccesoUsuario")]
         [HttpPost]
         public RequestMessage UserRecoveryAccess(User entidad)
         {
@@ -105,7 +117,14 @@ namespace P_API_Martes.Controllers
 
                     if (res != null)
                     {
-                        SendMail(res.Mail, "Accesso Temporal", res.Password);
+                        string path = AppDomain.CurrentDomain.BaseDirectory + "Password.html";
+                        string contain = File.ReadAllText(path);
+
+                        contain = contain.Replace("@@Name", res.Name);
+                        contain = contain.Replace("@@Password", res.Password);
+                        contain = contain.Replace("@@Expiration", res.Expiration.ToString("dd/MM/yyyy hh:mm:ss tt"));
+
+                        Utilities.SendMail(res.Mail, "Accesso Temporal", contain);
 
                         response.Code = 0;
                         response.Message = string.Empty;                    
@@ -123,23 +142,6 @@ namespace P_API_Martes.Controllers
                 response.Message = "Se presentó un error en el sistema";
             }
             return response;
-        }
-
-        private void SendMail (string destiny, string subject, string content)
-        {
-            MailMessage message = new MailMessage();
-            message.From = new MailAddress(ConfigurationManager.AppSettings["cuentaCorreo"]);
-            message.To.Add(new MailAddress(destiny));
-            message.Subject = subject;
-            message.Body = content;
-            message.Priority  = MailPriority.Normal;
-            message.IsBodyHtml = true;
-
-            SmtpClient client = new SmtpClient("smtp.office365.com", 587);
-            client.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["cuentaCorreo"], 
-                                                                  ConfigurationManager.AppSettings["claveCorreo"]);
-            client.EnableSsl = true;
-            client.Send(message);
         }
     }
 }

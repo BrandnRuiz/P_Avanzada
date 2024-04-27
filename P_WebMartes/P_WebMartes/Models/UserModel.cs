@@ -41,5 +41,21 @@ namespace P_WebMartes.Models
                     return null;
             }
         }
+
+        public RequestMessage UserRecoverAccess(User entidad)
+        {
+            //De acá llamamos al API
+            using (var client = new HttpClient())
+            {
+                url += "Login/RecuperarAccesoUsuario";
+                JsonContent jsonEntidad = JsonContent.Create(entidad);
+                var res = client.PostAsync(url, jsonEntidad).Result;
+
+                if (res.IsSuccessStatusCode)
+                    return res.Content.ReadFromJsonAsync<RequestMessage>().Result;
+                else
+                    return null;
+            }
+        }
     }
 }
